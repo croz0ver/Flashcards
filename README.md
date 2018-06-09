@@ -1,4 +1,4 @@
-# Leitura Web App
+# Flashcards
 ## Jose Rodrigo balzan - <crozover@gmail.com>
 
 ### Para instalar e executar a aplicação siga os passos abaixos:
