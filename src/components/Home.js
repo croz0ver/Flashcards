@@ -76,6 +76,12 @@ class Home extends Component {
             </View >
           )
         }))
+    } else {
+      return (
+        <View style={{alignItems: 'center'}} >
+          <Image source={Images.others.nonedeck} />
+        </View>
+      )
     }
   }
 

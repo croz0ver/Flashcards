@@ -51,6 +51,7 @@ export const delets = {
 
 export const questionAndAnswer = {
     showAnswer: require('@images/mostraresposta.png'),
+    tryAgain: require('@images/tentarnovamente.png'),
     question: require('@images/pergunta.png'),
     answer: require('@images/resposta.png'),
     newQuestion: require('@images/cardsnovo.png'),
@@ -72,6 +73,8 @@ export const edits = {
 }
 
 export const others = {
+    backChoice: require('@images/escolhavoltar.png'),
+    nonedeck: require('@images/nenhumdeck.png'),
     nonecard: require('@images/nenhumacarta.png'),
     addtostart: require('@images/addtostart.png'),
     color: require('@images/cor.png'),

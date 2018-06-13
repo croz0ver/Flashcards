@@ -12,7 +12,7 @@ async function register() {
   const { status } = await Expo.Permissions.askAsync(Expo.Permissions.NOTIFICATIONS)
 
   if (status !== 'granted') {
-    alert('Você precisa permitir que o app te mande notificações!')
+    Expo.Notifications.cancelAllScheduledNotificationsAsync()
     return
   }
 
@@ -30,7 +30,7 @@ async function register() {
     android: { sound: true, priority: 'high', sticky: false, vibrate: true }
   }
 
-    Expo.Notifications.presentLocalNotificationAsync(localNotification)
+  Expo.Notifications.presentLocalNotificationAsync(localNotification)
 
   Expo.Notifications.scheduleLocalNotificationAsync(
     localNotification,
@@ -62,7 +62,7 @@ export default class App extends React.Component {
     this.listener && Expo.Notifications.removeListener(this.listen)
   }
 
-  listen = ({origin, data}) => {
+  listen = ({ origin, data }) => {
     console.log(origin, data)
   }
 

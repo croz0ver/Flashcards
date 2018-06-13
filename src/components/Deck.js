@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, ListView, ScrollView, TouchableOpacity, Button,
 import { newDeck, setDecks, resetDecks, chooseAction } from '@actions'
 import { Actions } from 'react-native-router-flux'
 import * as Images from '@utils/ImagesConstants'
-
+//Titulo do deck atual encontra-se na navBar do router-flux, propriedade "title" do componente Deck!
 class Deck extends Component {
 
 

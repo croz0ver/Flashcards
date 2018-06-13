@@ -20,7 +20,8 @@ import {
     setDecks,
     resetDecks,
     chooseAction,
-    changeTitle
+    changeTitle,
+    chooseDeck
 } from '@actions'
 import { Actions } from 'react-native-router-flux'
 import * as Images from '@utils/ImagesConstants'
@@ -89,7 +90,9 @@ class NewDeck extends Component {
         } else {
             this.setState({ added: true })
             this.props.newDeck(this.props.title, { title: this.props.title, color: this.state.color, questions: [], points: 0 })
+            this.props.chooseDeck({ name: this.props.title, color: this.state.color, questions: [], points: 0 })
             this.props.changeTitle('')
+            Actions.deck()
         }
     }
 
@@ -145,6 +148,7 @@ const mapStateToProps = state => (
 export default connect(
     mapStateToProps,
     {
+        chooseDeck,
         newDeck,
         setDecks,
         resetDecks,

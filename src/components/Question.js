@@ -66,16 +66,21 @@ class Question extends Component {
             )
         }
         return (
-            <Text style={{ color: 'white', fontSize: 30, textAlign: 'center', margin: 10 }} >{this.props.deck.questions[this.props.questionIndex].pergunta}</Text>
+            <View>
+                <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', fontWeight: 'bold' }} >{this.props.questionIndex + 1}/{this.props.deck.questions.length}</Text>
+                <View style={{marginTop: 100, justifyContent: 'center'}} >
+                    <Text style={{ color: 'white', fontSize: 30, textAlign: 'center', fontWeight: 'bold' }} >{this.props.deck.questions[this.props.questionIndex].pergunta}</Text>
+                </View>
+            </View>
         )
     }
 
     render() {
         return (
             <Transition>
-                <ImageBackground style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} source={this.chooseBackground()} >
+                <ImageBackground style={{ flex: 1, alignItems: 'center', justifyContent:'space-between' }} source={this.chooseBackground()} >
                     {this.renderComponent()}
-                    <TouchableOpacity style={{justifyContent: 'flex-end', marginTop: 40}} onPress={this.doTransition} >
+                    <TouchableOpacity style={{ justifyContent: 'flex-end', marginTop: 40 }} onPress={this.doTransition} >
                         <Image source={Images.questionAndAnswer.showAnswer} />
                     </TouchableOpacity>
                 </ImageBackground>

@@ -29,10 +29,15 @@ import { Actions } from 'react-native-router-flux'
 import { createTransition, FlipX } from 'react-native-transition';
 import Question from '@components/Question'
 import * as Images from '@utils/ImagesConstants'
+import Expo from 'expo'
 
 const Transition = createTransition(FlipX);
 
 class Answer extends Component {
+
+    componentDidMount(){
+        Expo.Notifications.cancelAllScheduledNotificationsAsync()
+    }
 
     chooseBackground() {
         switch (this.props.deck.color) {
@@ -85,25 +90,31 @@ class Answer extends Component {
     renderComponent() {
         if (this.props.finished) {
             return (
-                <View>
+                <View style={{flex: 1, justifyContent: 'center'}} >
                     <View style={{ alignItems: 'center', margin: 5 }} >
                         <Image source={Images.pontuation.yourPontuationIs} />
                     </View>
                     <Text style={{ color: 'white', fontSize: 28, textAlign: 'center', fontWeight: 'bold', margin: 5 }} >{Math.floor((this.props.pontuation / this.props.deck.questions.length) * 100)}%</Text>
                     {this.pontuationMessage(this.props.pontuation / this.props.deck.questions.length * 100)}
-                    <TouchableOpacity onPress={() => { this.savePoints(); Actions.pop() }} style={{ alignItems: 'center', margin: 5 }} >
-                        <Image source={Images.pontuation.savePoints} />
-                    </TouchableOpacity>
+                    <View style={{marginTop: 5, alignItems: 'center' }} >
+                        <TouchableOpacity onPress={() => { this.props.changeProps(0, Constants.CHANGE_QUESTION_INDEX); Transition.show(<Question/>); this.props.changeProps(false, Constants.CHANGE_FINISHED); this.props.changeProps(0, Constants.RESET_POINTS); }} style={{ alignItems: 'center', marginTop: 20 }} >
+                            <Image source={Images.questionAndAnswer.tryAgain} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { this.savePoints(); Actions.pop() }} style={{ alignItems: 'center', marginTop: 20 }} >
+                            <Image source={Images.others.backChoice} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )
         }
         return (
             <View>
+                <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', fontWeight: 'bold' }} >{this.props.questionIndex + 1}/{this.props.deck.questions.length}</Text>
                 <View style={{ flex: 2, justifyContent: 'center' }} >
                     <Text style={{ color: 'white', fontSize: 30, textAlign: 'center' }} >{this.props.deck.questions[this.props.questionIndex].resposta}</Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: 'row' }} >
-                    <TouchableOpacity onPress={() => { Transition.show(<Question />); this.buttonFunction(); this.props.changeProps(1, Constants.ADD_POINT) }} >{/*this.props.changeProps(1, Constants.ADD_POINT)*/}
+                    <TouchableOpacity onPress={() => { Transition.show(<Question />); this.buttonFunction(); this.props.changeProps(1, Constants.ADD_POINT) }} >
                         <Image source={Images.questionAndAnswer.right} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => { Transition.show(<Question />); this.buttonFunction() }} >
@@ -120,7 +131,7 @@ class Answer extends Component {
         }
         return questionIndex + 1
     }
-    
+
 
     buttonFunction() {
         if (this.props.deck.questions.length <= this.props.questionIndex + 1) {
